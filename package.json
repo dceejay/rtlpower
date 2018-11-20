@@ -1,0 +1,23 @@
+{
+    "name"          : "node-red-contrib-rtl-power",
+    "version"       : "0.0.1",
+    "description"   : "A Node-RED package that provide uses sdr_power to report data on any radio frequency.",
+    "dependencies"  : {
+    },
+    "repository" : {
+        "type":"git",
+        "url":"https://github.com/dceejay/rtlpower"
+    },
+    "license": "Apache",
+    "keywords": [ "node-red", "sdr", "rtl-power" ],
+    "node-red"      : {
+        "nodes"     : {
+            "rtlpower" : "rtlpower.js"
+        }
+    },
+    "author": {
+        "name": "Dave Conway-Jones",
+        "email": "ceejay@vnet.ibm.com",
+        "url": "http://nodered.org"
+    }
+}

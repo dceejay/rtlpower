@@ -1,0 +1,67 @@
+
+<script type="text/x-red" data-template-name="rtlpower">
+    <div class="form-row">
+        <label for="node-input-low"><i class="fa fa-long-arrow-left"></i> Low Freq</label>
+        <input type="text" id="node-input-low" placeholder="433.42M">
+    </div>
+    <div class="form-row">
+        <label for="node-input-high"><i class="fa fa-long-arrow-right"></i> High Freq</label>
+        <input type="text" id="node-input-high" placeholder="434.42M">
+    </div>
+    <div class="form-row">
+        <label for="node-input-bw"><i class="fa fa-arrows-h"></i> Bandwidth</label>
+        <input type="text" id="node-input-bw" placeholder="1M">
+    </div>
+    <div class="form-row">
+        <label for="node-input-gain"><i class="fa fa-arrows-v"></i> Gain (dB)</label>
+        <input type="text" id="node-input-gain" placeholder="0">
+    </div>
+    <div class="form-row">
+        <label for="node-input-time"><i class="fa fa-repeat"></i> Time (S)</label>
+        <input type="text" id="node-input-time" placeholder="10">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="rtlpower">
+    <p>Uses a USB SDR receiver and calls the <code>rtl_power</code> command line application to report radio emission strength.</p>
+    <p>This is not a decoder - it is purely meant to detect strength of signal at a particular
+    (or small range)  of frequencies. You then need to decide what to do with that.</p>
+    <p>The rtl-sdr suite that includes rtl_power must be installed and available to call from the command line.
+    The main project is here https://github.com/osmocom/rtl-sdr.</p>
+    <p>Set the low frequency, high frequency, size of bucket/step between them, gain, and amount of time to scan
+    over before reporting. It is very easy to get wrong and you may need to experiment just using the command
+    line command outside of Node-RED in order to find combinations that work for you.</p>
+    <p>Example command-line : <code>rtl_power -f 433.42M:434.42M:1M -i 1 -g 0</code>.</p>
+    <p>Returns an object with the high and low frequency of that bucket and an array of values based on the
+    number of samples taken. This may vary in size. There will be one msg per bucket and the <code>topic</code>
+    will be set to the centre frequency of the bucket.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('rtlpower',{
+        category: 'advanced',
+        defaults: {
+            name: {value:""},
+            high: {value:""},
+            low: {value:""},
+            bw: {value:""},
+            time: {value:"10",required:true},
+            gain: {value:""}
+        },
+        color:"#EDD75A",
+        inputs:0,
+        outputs:1,
+        icon: "feed.png",
+        paletteLabel: "rtl power",
+        label: function() {
+            return this.name||this.filename||"rtl power";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
