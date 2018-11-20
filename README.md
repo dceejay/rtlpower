@@ -19,6 +19,8 @@ Pre-requisites
 The rtl-sdr suite that includes the `rtl_power` command must be installed and available to call from the command line.
 The main project is here https://github.com/osmocom/rtl-sdr - but do read instructions first on how to get it installed... On Mac there it is available via Brew.
 
+The rtl_power command runs on a SDR USB Stick so that must also be plugged in.
+
 
 Usage
 -----
