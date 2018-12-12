@@ -27,15 +27,26 @@ module.exports = function(RED) {
                 var lines = data.toString().trim().split("\n");
                 for (var i = 0; i < lines.length; i++ ) {
                     var l = lines[i].trim().split(',');
-                    var yr = l.shift();
-                    var ts = l.shift();
-                    var lo = parseInt(l.shift());
-                    var hi = parseInt(l.shift());
-                    var bw = parseInt(l.shift());
-                    var sa = parseInt(l.shift());
-                    var result = l.map(function (x) {
-                        return parseFloat(x, 10);
-                    });
+                    var yr = l.shift(); // Date
+                    var ts = l.shift(); // Time
+                    var lo = parseInt(l.shift()); // Low Hz
+                    var hi = parseInt(l.shift()); // High Hz
+                    var bw = parseInt(l.shift()); // Steps / Bucket Width (Hz)
+                    var sa = parseInt(l.shift()); // Sample size
+
+                    var result = {
+                        "low" : lo,
+                        "high": hi,
+                        "bucket" : bw,
+                        "samples" : sa,
+                        "results" : {}
+                    };
+
+                    for(var x = 0; x < l.length; x++){
+                        var freq = lo + x*bw;
+                        result.results[freq] = parseFloat(l[x]);
+                    }
+
                     node.send({topic:((hi+lo)/2), payload:result});
                 }
             });
