@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-rtl-power",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A Node-RED package that provide uses the rtl_power utility for SDR to report data on any radio frequency.",
     "dependencies": {
     },
